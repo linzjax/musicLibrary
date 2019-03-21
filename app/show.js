@@ -3,7 +3,11 @@ const library = require('./models');
 const print   = require('./print.js');
 
 module.exports =  {
-  // for all artists and all their albums, print the album.
+  /*
+    Return a list of all artists and all their albums
+    REQUEST FORMAT: show all
+    @returns [String]
+  */
   all: function() {
     if (libraryIsEmpty()) {
       return [error.emptyLibrary()];
@@ -17,7 +21,12 @@ module.exports =  {
     return list;
   },
 
-  // only print albums by a specific artist.
+  /*
+    Return a list of all albums by a specified artist
+    REQUEST FORMAT: show all by "Artist"
+    @param String
+    @returns [String]
+  */
   allByArtist: function(req) {
     let args = req.split('\"');
     let artist = args[1];
@@ -35,7 +44,11 @@ module.exports =  {
     return list;
   },
 
-  // only print unplayed albums.
+  /*
+    Return a list of all unplayed albums and their artists
+    REQUEST FORMAT: show unplayed
+    @returns [String]
+  */
   unplayed: function() {
     if (libraryIsEmpty()) {
       return [error.emptyLibrary()]
@@ -52,6 +65,12 @@ module.exports =  {
     return list;
   },
 
+  /*
+    Return a list of all unplayed albums by a specified artist
+    REQUEST FORMAT: show unplayed by "Artist"
+    @param String
+    @returns [String]
+  */
   unplayedByArtist: function(req) {
     let args = req.split('\"');
     let artist = args[1];
@@ -74,8 +93,13 @@ module.exports =  {
   }
 }
 
-// for all albums associated with a specific artist, print the album.
-function _allByArtist(artist) {
+/*
+  For all albums associated with a specific artist, add that album to the list.
+  @param: String
+  @param: [String]
+  @returns [String]
+*/
+function _allByArtist(artist, allList) {
   for (var album of library.artists[artist].albums) {
     allList.push(print.formatAlbumAndArtist(album, artist) + " " +
                  print.hasBeenPlayed(library.albums[album].played));
@@ -83,6 +107,12 @@ function _allByArtist(artist) {
 }
 
 /*
+  For all unplayed albums associated with a specific artist, add that album to
+  the list.
+  @param: String
+  @param: [String]
+  @returns [String]
+*/
 function _unplayedByArtist(artist, unplayedList) {
   for (var album of library.artists[artist].albums) {
     if (!library.albums[album].played) {
@@ -93,6 +123,10 @@ function _unplayedByArtist(artist, unplayedList) {
   return unplayedList;
 }
 
+/*
+  Check if the library is empty before performing any action.
+  @returns Bool
+*/
 function libraryIsEmpty() {
   return (Object.entries(library.artists).length === 0 && library.artists.constructor === Object)
 }

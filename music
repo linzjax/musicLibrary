@@ -13,8 +13,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Initial greeting
 console.log('Welcome to your music collection!')
+// Initialize the library
+queryLibrary();
 
+// Recursive function that asks for input, parses the first argument of the
+// input, and sends the request to the correct handling function.
 function queryLibrary() {
   rl.question('> ', (req) => {
     var args = req.trim().split(' ');
@@ -62,5 +67,3 @@ function queryLibrary() {
     queryLibrary();
   });
 };
-
-queryLibrary();
