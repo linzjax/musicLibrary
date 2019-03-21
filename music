@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+const readline = require('readline');
+const add      = require('./app/add.js');
+const error    = require('./app/error.js');
+const library  = require('./app/models.js');
+const show     = require('./app/show.js');
+const play     = require('./app/play.js');
+const print    = require('./app/print.js');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+console.log('Welcome to your music collection!')
+
+function queryLibrary() {
+  rl.question('> ', (req) => {
+    var args = req.trim().split(' ');
+    switch(args[0]) {
+      case 'add':
+        print.response(add.album(req));
+        break;
+
+      case 'play':
+        play.album(req);
+        break;
+
+      case 'show':
+        switch(args[1]) {
+          case 'unplayed':
+            if (args.length > 2) {
+              print.list(show.unplayedByArtist, req);
+            } else {
+              print.list(show.unplayed);
+            }
+            break;
+
+          case 'all':
+            if (args.length > 2) {
+              print.list(show.allByArtist, req);
+            } else {
+              print.list(show.all);
+            }
+            break;
+
+          default:
+            print.list(error.unknownRequest);
+        }
+        break;
+
+      case 'quit':
+        print.response('Bye!');
+        rl.close();
+        return;
+      default:
+        print.list(error.unknownRequest);
+    }
+    // Unless the user typed 'quit', recurse through the function again.
+    queryLibrary();
+  });
+};
+
+queryLibrary();
