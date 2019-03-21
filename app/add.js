@@ -9,13 +9,11 @@ module.exports = {
     let artist = args[3];
 
     if (title === undefined || artist === undefined) {
-      print.list(error.unknownRequest);
-      return;
+      return error.unknownRequest();
     }
 
     if (library.albums[title] !== undefined) {
-      error.albumAlreadyExists(title, library.albums[title].artist)
-      return;
+      return error.albumAlreadyExists(title, library.albums[title].artist)
     }
 
     // If the artist doesn't already exist in the library, add it.
@@ -27,6 +25,6 @@ module.exports = {
     }
 
     library.albums[title] = new library.Album(artist, title);
-    print.response("Added", print.formatAlbumAndArtist(title, artist));
+    return "Added " + print.formatAlbumAndArtist(title, artist);
   }
 }

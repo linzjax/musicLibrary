@@ -8,13 +8,10 @@ module.exports = {
     let title = args[1];
 
     if (library.albums[title] === undefined) {
-      print.list(error.unknownAlbum, title);
+      return error.unknownAlbum(title);
     } else {
       library.albums[title].played = true;
-      print.response(
-        "You're listening to",
-        print.formatAlbum(title)
-      )
+      return "You're listening to " + print.formatAlbum(title);
     }
   }
 }

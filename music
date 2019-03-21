@@ -24,29 +24,29 @@ function queryLibrary() {
         break;
 
       case 'play':
-        play.album(req);
+        print.response(play.album(req));
         break;
 
       case 'show':
         switch(args[1]) {
           case 'unplayed':
             if (args.length > 2) {
-              print.list(show.unplayedByArtist, req);
+              print.list(show.unplayedByArtist(req));
             } else {
-              print.list(show.unplayed);
+              print.list(show.unplayed());
             }
             break;
 
           case 'all':
             if (args.length > 2) {
-              print.list(show.allByArtist, req);
+              print.list(show.allByArtist(req));
             } else {
-              print.list(show.all);
+              print.list(show.all());
             }
             break;
 
           default:
-            print.list(error.unknownRequest);
+            print.response(error.unknownRequest());
         }
         break;
 
@@ -54,8 +54,9 @@ function queryLibrary() {
         print.response('Bye!');
         rl.close();
         return;
+
       default:
-        print.list(error.unknownRequest);
+        print.response(error.unknownRequest());
     }
     // Unless the user typed 'quit', recurse through the function again.
     queryLibrary();

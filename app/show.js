@@ -6,13 +6,15 @@ module.exports =  {
   // for all artists and all their albums, print the album.
   all: function() {
     if (libraryIsEmpty()) {
-      print.list(error.emptyLibrary);
-      return;
+      return [error.emptyLibrary()];
     }
 
+    let list = []
     for (var artist in library.artists) {
-      _allByArtist(artist);
+      _allByArtist(artist, list);
     }
+
+    return list;
   },
 
   // only print albums by a specific artist.
@@ -21,32 +23,33 @@ module.exports =  {
     let artist = args[1];
 
     if (libraryIsEmpty()) {
-      print.list(error.emptyLibrary);
-      return;
+      return [error.emptyLibrary()]
     }
 
     if (library.artists[artist] === undefined) {
-      print.list(error.unknownArtist, artist);
-      return;
+      return [error.unknownArtist(artist)]
     }
 
-    _allByArtist(artist);
+    let list = [];
+    _allByArtist(artist, list);
+    return list;
   },
 
   // only print unplayed albums.
   unplayed: function() {
     if (libraryIsEmpty()) {
-      print.list(error.emptyLibrary);
-      return
+      return [error.emptyLibrary()]
     }
 
-    var emptyList = true;
+    let list = [];
     for (var artist in library.artists) {
-      emptyList = _unplayedByArtist(artist, emptyList);
+      _unplayedByArtist(artist, list);
     }
-    if (emptyList) {
-      print.list(error.emptyUnplayed);
+    if (list.length === 0) {
+      return [error.emptyUnplayed()];
     }
+
+    return list;
   },
 
   unplayedByArtist: function(req) {
@@ -54,41 +57,40 @@ module.exports =  {
     let artist = args[1];
 
     if (libraryIsEmpty()) {
-      print.list(error.emptyLibrary);
-      return
+      return [error.emptyLibrary()];
     }
 
     if (library.artists[artist] === undefined) {
-      print.list(error.unknownArtist, artist);
-      return;
+      return [error.unknownArtist(artist)];
     }
 
-    var emptyList = true;
-    emptyList = _unplayedByArtist(artist, emptyList);
+    let list = [];
+    _unplayedByArtist(artist, list);
 
-    if (emptyList) {
-      print.list(error.emptyUnplayed);
+    if (list.length === 0) {
+      return [error.emptyUnplayed()];
     }
+    return list;
   }
 }
 
 // for all albums associated with a specific artist, print the album.
 function _allByArtist(artist) {
   for (var album of library.artists[artist].albums) {
-    console.log(print.formatAlbumAndArtist(album, artist),
-                print.hasBeenPlayed(library.albums[album].played ))
+    allList.push(print.formatAlbumAndArtist(album, artist) + " " +
+                 print.hasBeenPlayed(library.albums[album].played));
   }
 }
 
-function _unplayedByArtist(artist, emptyList) {
+/*
+function _unplayedByArtist(artist, unplayedList) {
   for (var album of library.artists[artist].albums) {
     if (!library.albums[album].played) {
-      emptyList = false;
-      console.log(print.formatAlbumAndArtist(album, artist),
-      print.hasBeenPlayed(library.albums[album].played ))
+      unplayedList.push(print.formatAlbumAndArtist(album, artist) + " " +
+                        print.hasBeenPlayed(library.albums[album].played ));
     }
   }
-  return emptyList;
+  return unplayedList;
 }
 
 function libraryIsEmpty() {

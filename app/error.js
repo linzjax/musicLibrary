@@ -1,30 +1,34 @@
+// All error messages for Music library
+const print   = require('./print.js');
+
 module.exports = {
   unknownArtist: function(artist) {
-    console.log("Couldn't find the artist: ", artist);
-    console.log("Make sure you surround the artist you requested in \"double quotes\".");
+    return ("Couldn't find the artist: " + artist + "\n" +
+           "Make sure you surround the artist you requested in " +
+           "\"double quotes\".");
   },
   unknownAlbum: function(title) {
-    console.log("Couldn't find the album: ", title);
-    console.log("Make sure you surround the album you requested in \"double quotes\".");
+    return ("Couldn't find the album: " + title + "\n" +
+           "Make sure you surround the album you requested in " +
+           "\"double quotes\".");
   },
   unknownRequest: function() {
-    console.log("Sorry, I didn't understand that. These are the commands I understand:");
-    console.log("> add \"album\" \"artist\"");
-    console.log("> play \"album\"");
-    console.log("> show [ all | unplayed | all by \"artist\" | unplayed by \"artist\" ]");
+    return ("Sorry, I didn't understand that. " +
+           " These are the commands I understand:\n" +
+           "> add \"album\" \"artist\"\n" +
+           "> play \"album\"\n" +
+           "> show [ all | unplayed | all by \"artist\" | unplayed by \"artist\" ]");
   },
   emptyLibrary: function() {
-    console.log("Looks like your library is empty! Try adding some albums:");
-    console.log("i.e. > add \"Little Queen\" \"Heart\"");
+    return ("Looks like your library is empty! Try adding some albums:\n" +
+           "i.e. > add \"Little Queen\" \"Heart\"");
   },
   emptyUnplayed: function() {
-    console.log("Looks like you've listened to everything! Try adding some new albums:");
-    console.log("i.e. > add \"Greatest Hits\" \"Queen\"");
+    return ("Looks like you've listened to everything! Try adding some new albums:\n" +
+           "i.e. > add \"Greatest Hits\" \"Queen\"");
   },
   albumAlreadyExists: function (title, artist) {
-    print.response(
-      "That album already exists in your library:",
-      print.formatAlbumAndArtist(title, artist)
-    )
+    return ("That album already exists in your library:\n" +
+            print.formatAlbumAndArtist(title, artist));
   }
 }
