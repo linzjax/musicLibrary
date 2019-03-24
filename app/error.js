@@ -17,7 +17,8 @@ module.exports = {
            " These are the commands I understand:\n" +
            "> add \"album\" \"artist\"\n" +
            "> play \"album\"\n" +
-           "> show [ all | unplayed | all by \"artist\" | unplayed by \"artist\" ]");
+           "> show [ all | unplayed | all by \"artist\" | unplayed by \"artist\" ]\n" +
+           "> quit");
   },
   emptyLibrary: function() {
     return ("Looks like your library is empty! Try adding some albums:\n" +
