@@ -1,7 +1,7 @@
 {
   "name": "musicLibrary",
   "version": "1.0.0",
-  "description": "",
+  "description": "(Submission for Primary's Take Home Assignment)",
   "main": "music",
   "directories": {
     "test": "spec"
@@ -16,5 +16,13 @@
   },
   "keywords": [],
   "author": "Lindsey Jacks",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linzjax/musicLibrary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/linzjax/musicLibrary/issues"
+  },
+  "homepage": "https://github.com/linzjax/musicLibrary#readme"
 }
