@@ -12,7 +12,7 @@ module.exports = {
   */
   Album: function(artist, title) {
     this.artist = artist;
-    this.title = title;
+    this.title  = title;
     this.played = false;
   },
 
@@ -26,7 +26,7 @@ module.exports = {
   @returns: Artist {name: String, albums: [String]}
   */
   Artist: function(name, album) {
-    this.name = name;
+    this.name   = name;
     this.albums = [album]
   }
 }

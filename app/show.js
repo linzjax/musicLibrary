@@ -1,5 +1,5 @@
-const error   = require('./error');
 const library = require('./models');
+const error   = require('./error');
 const print   = require('./print.js');
 
 module.exports =  {

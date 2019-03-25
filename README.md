@@ -30,3 +30,8 @@ Make sure your albums and artists are always entered with "double quotes". Other
 ```bash
 $ npm test
 ```
+
+## To Do:
+- [ ] Currently if a user enters bad input, it checks if the artist exists and
+      returns unknownArtist or unknownAlbum. Should check if the argument is
+      `undefined`, rather than just not in the library.

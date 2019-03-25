@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 const readline = require('readline');
-const add      = require('./app/add.js');
-const error    = require('./app/error.js');
 const library  = require('./app/models.js');
+const add      = require('./app/add.js');
 const show     = require('./app/show.js');
 const play     = require('./app/play.js');
+const error    = require('./app/error.js');
 const print    = require('./app/print.js');
 
 const rl = readline.createInterface({
