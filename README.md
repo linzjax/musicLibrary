@@ -15,11 +15,12 @@ $ chmod u+x music
 $ ./music
 ```
 
-# Commands
+## Commands
 ```bash
 > add "Album" "Artist"
 > play "Album"
 > show [ all | unplayed | all by "Artist" | unplayed by "Artist" ]
+> quit
 ```
 
 Make sure your albums and artists are always entered with "double quotes". Otherwise, the program won't run properly.
